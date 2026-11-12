@@ -1,0 +1,28 @@
+{
+  "name": "faceless-course-videos",
+  "version": "1.0.0",
+  "private": true,
+  "description": "faceless. course lesson videos (Remotion)",
+  "scripts": {
+    "studio": "remotion studio",
+    "render:v1": "remotion render Video1 out/video1.mp4",
+    "render:v2": "remotion render Video2 out/video2.mp4",
+    "render:v3": "remotion render Video3 out/video3.mp4",
+    "scripts": "node tools/export-scripts.mjs",
+    "typecheck": "tsc --noEmit",
+    "stills": "node tools/stills.mjs"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.543",
+    "@remotion/layout-utils": "4.0.543",
+    "@remotion/media-utils": "4.0.543",
+    "@remotion/motion-blur": "4.0.543",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "remotion": "4.0.543"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.2",
+    "typescript": "5.9.3"
+  }
+}
