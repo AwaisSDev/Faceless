@@ -28,7 +28,8 @@ export const UICard: React.FC<{
   const rx = from === "bottom" ? tilt : from === "top" ? -tilt : 0;
   const ry = from === "left" ? -tilt : from === "right" ? tilt : 0;
   const ex = exitAt !== undefined ? interpolate(f, [exitAt, exitAt + 16], [0, 1], { ...clamp, easing: EXPO_OUT }) : 0;
-  if (f < at) return null;
+  // Before its entrance the card keeps its layout slot (so siblings don't jump).
+  const hidden = f < at;
   return (
     <div
       style={{
@@ -48,6 +49,7 @@ export const UICard: React.FC<{
         position: "relative",
         boxSizing: "border-box",
         ...style,
+        ...(hidden ? { visibility: "hidden" as const } : {}),
       }}
     >
       {children}
@@ -68,7 +70,7 @@ export const Reveal: React.FC<{
   const f = useCurrentFrame();
   const p = settle(f, at);
   const ex = exitAt !== undefined ? interpolate(f, [exitAt, exitAt + 14], [0, 1], { ...clamp, easing: EXPO_OUT }) : 0;
-  if (f < at) return null;
+  const hidden = f < at;
   const b = (1 - p) * blur + ex * 12;
   return (
     <div
@@ -77,6 +79,7 @@ export const Reveal: React.FC<{
         transform: `translate(${(1 - p) * dx}px, ${(1 - p) * dist - ex * 20}px)`,
         filter: b > 0.2 ? `blur(${b}px)` : undefined,
         ...style,
+        ...(hidden ? { visibility: "hidden" as const } : {}),
       }}
     >
       {children}
